@@ -1,0 +1,101 @@
+#include <stdio.h> 
+#include <iostream> 
+#include <vector> 
+#include <fstream> 
+#include <strstream> 
+#include <sstream> 
+#include <deque> 
+#include <queue> 
+#include <cassert> 
+#include <set> 
+#include <map> 
+#include <iomanip> 
+#include <iterator> 
+#include <algorithm> 
+#include <list> 
+#include <string> 
+#include <cmath> 
+
+#define mp make_pair
+#define pb push_back
+#define ll long long
+
+#define file "file"
+
+#define DEBUG 1
+#define dout if(DEBUG) cout
+
+#pragma warning(disable : 4996) 
+
+using namespace std;
+int main()
+{
+#ifdef LEONCHIK
+	//freopen("in.txt", "r", stdin); freopen("out.txt", "w", stdout);
+#else
+	freopen(file".in", "r", stdin); freopen(file".out", "w", stdout);
+#endif
+
+	// ios_base::sync_with_stdio(false); cin.tie(NULL);
+
+
+	const int N = 1000;
+	int n, v, m, to, a, b;
+
+	cin >> n;
+	cin >> n;
+
+	vector<int> g[N];
+
+	queue<int> q;
+	vector<bool> used(n);
+	vector<int> dist(n);
+	vector<int> way(n);
+
+
+	for (size_t i = 0; i < m; i++) {
+		cin >> a >> b;
+		g[a].push_back(b);
+		g[b].push_back(a);
+	}	
+
+	int s = 0;
+	dist[s] = 0;;
+	way[s] = -1;
+	used[s] = true;
+	q.push(s);
+
+	while (!q.empty())
+	{
+		v = q.front();
+		q.pop();
+
+		for (size_t i = 0; i < g[v].size(); i++)
+		{
+			to = g[v][i];
+			if (!used[to])
+			{
+				used[to] = true;
+				dist[to] = dist[v] + 1;
+				way[to] = v;
+				q.push(to);
+			}
+		}
+	}
+	
+
+	for (size_t i = 0; i < n; i++)
+	{
+		cout << dist[i] << " ";
+	}
+
+	cout << endl;
+	for (size_t i = 0; i < n; i++)
+	{
+		cout << way[i] << " ";
+	}
+	
+	
+	
+    return 0;
+}
